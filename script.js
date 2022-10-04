@@ -53,6 +53,7 @@ function displayBooks(library){
     cardContent.appendChild(buttonBlock);
     const readBtn = this.element = document.createElement('button');
     const deleteBtn = this.element = document.createElement('button');
+    deleteBtn.setAttribute('id', library[i].title);
     buttonBlock.appendChild(readBtn);
     buttonBlock.appendChild(deleteBtn);
     readBtn.innerHTML = 'Read';
@@ -65,25 +66,30 @@ function displayBooks(library){
     cardContent.appendChild(pages);
     pages.innerHTML = `${library[i].pages}`;
 
+   
+
      // making buttons do stuff
     readBtn.onclick = () => {
-      
-      if (library.isRead == true){
-        
-        library.isRead = false;
+      const index = library.findIndex(book => {
+        return book.title === deleteBtn.id;
+      });
+      if (library[index].isRead){
         readBtn.style.background='red';
+        library[index].isRead = false;
+  
       }
       else {
-        library.isRead = true;
         readBtn.style.background='green';
+        library[index].isRead = true;
       }
-      console.log(library.isRead);
     }
 
     deleteBtn.onclick = () => {
-    cardTemplate.style.display = 'none';
-    library.splice(- 1, 1);
-
+      const index = library.findIndex(book => {
+        return book.title === deleteBtn.id;
+      });
+      library.splice(index, 1);
+      displayBooks(library);
     }
   }
 
@@ -112,13 +118,7 @@ class Library {
     this.books.push(newBook)
   }
 
-  deleteBook(book){
-    for (var i=0, iLen=this.books.length; i<iLen; i++) {
-      if (this.books[i].b == book){
-        this.books.splice(i, 1);
-      }
-    }
-  }
+ 
 
 }
  
@@ -135,6 +135,9 @@ addBookBtn.onclick = () => {
   myBooks.addBook(newBook);
   displayBooks(myBooks.books);
   closePop();
-
-  
+  for (var i=0, iLen=myBooks.books.length; i<iLen; i++) {
+    console.log(`Name: ${myBooks.books[i].title}, is read: ${myBooks.books[i].isRead}`);
+  }
 }
+
+
