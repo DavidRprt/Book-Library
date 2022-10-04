@@ -8,21 +8,30 @@
     <link rel="preconnect" href="https://fonts.googleapis.com"> 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <title>Library</title>
 </head>
 <body>
     <section class="nav-bar">
-        <h1>Library</h1>
+        <div class="header">
+            <i class="fa-solid fa-book-bookmark"></i>
+            <h1>Library</h1>
+        </div>
+        <div class="header">
+            <button class="add-btn">Log In</button>
+            <button class="add-btn">Sign Up</button>
+        </div>
     </section>
         
     <section class="container">
         <button type="button" class="add-btn" id="openPopBtn">+ Add Book</button>
+        <button class="add-btn" id="openFiltersBtn">Filters</button>
         <div class="pop-up" id="popup">
-            <form class="form-container">
+            <form class="form-container" id="form">
                 <h3>Add New Book</h3>
-                <input type="text" name="title" placeholder="Title" id="title" required>
-                <input type="text" name="author" placeholder="Author" id="author" required>
-                <input type="number" name="pages" placeholder="Pages"id="pages" required>
+                <input type="text" name="title" placeholder="Title" id="title">
+                <input type="text" name="author" placeholder="Author" id="author">
+                <input type="number" name="pages" placeholder="Pages"id="pages" min="1">
                 <div class="check-container">
                     <label for="isRead">Have you read it?</label>
                     <input class="checkbox" type="checkbox" id="isRead">
@@ -30,6 +39,22 @@
                 <button type="button" id="addBookBtn">Add</button>
                 <button type="button" id="closePopBtn">Close</button>
             </form>
+        </div>
+        <div class="pop-up-filter" id="FilterPop">
+            <h4>Filters:</h4>
+            <div>
+                <p>Read it?</p>
+                <label for="yes">Yes</label>
+                <input class="checkbox" type="radio" name="yes">
+                <label for="no">No</label>
+                <input class="checkbox" type="radio" name="no">
+            </div>
+            <label for="minPages">Minimum number of pages</label>
+            <input type="number" id="minPages" min="1" value="1" name="minPages">
+            <label for="maxPages">Maximum number of pages</label>
+            <input type="number" id="maxPages" min="1" value="9999" name="maxPages">
+            <button>Apply</button>
+            <button>Discard</button>
         </div>
     </section>
 
