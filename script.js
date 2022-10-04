@@ -2,7 +2,43 @@
 function openPop(){
   document.getElementById("popup").style.display = 'block';
   document.getElementById("card-container").style.display = 'none';
+  document.getElementById('FilterPop').style.display = 'none';
   console.log("Opening Pop Up");
+}
+
+function openFilters(){
+  document.getElementById("popup").style.display = 'none';
+  document.getElementById('FilterPop').style.display = 'block';
+  document.getElementById("card-container").style.display = 'none';
+}
+
+function validateData(){
+  const title = document.getElementById('title');
+  const author = document.getElementById('author');
+  const pages = document.getElementById('pages');
+  if (title.value == ""){
+    title.style.border = "solid 1px red";
+    return false;
+  }
+
+  else if (author.value == ""){
+    author.style.border = "solid 1px red";
+    return false;
+  }
+
+  else if (pages.value <= 0){
+    pages.style.border = "solid 1px red";
+    return false;
+  }
+
+  else{
+    title.style.border = "none";
+    author.style.border = "none";
+    pages.style.border = "none";
+    return true;
+  }
+
+
 }
 
 function closePop(){
@@ -59,7 +95,7 @@ function displayBooks(library){
     readBtn.innerHTML = 'Read';
     deleteBtn.innerHTML = 'Delete';
     if (library[i].isRead) readBtn.style.background='green';
-    else readBtn.style.background='red';
+    else readBtn.style.background='#F96666';
 
     const pages = this.element = document.createElement('h3');
     pages.classList.add('pages');
@@ -74,12 +110,12 @@ function displayBooks(library){
         return book.title === deleteBtn.id;
       });
       if (library[index].isRead){
-        readBtn.style.background='red';
+        readBtn.style.background='#F96666';
         library[index].isRead = false;
   
       }
       else {
-        readBtn.style.background='green';
+        readBtn.style.background='#829460';
         library[index].isRead = true;
       }
     }
@@ -125,12 +161,15 @@ class Library {
 const openPopBtn = document.getElementById('openPopBtn');
 const closePopBtn = document.getElementById('closePopBtn');
 const addBookBtn = document.getElementById('addBookBtn');
+const openFiltersBtn = document.getElementById('openFiltersBtn');
 
 const myBooks = new Library();
 
 openPopBtn.onclick = openPop
 closePopBtn.onclick = closePop
-addBookBtn.onclick = () => {
+openFiltersBtn.onclick = openFilters;
+addBookBtn.onclick = () => { 
+  if (validateData()){
   const newBook = getBookFromPop();
   myBooks.addBook(newBook);
   displayBooks(myBooks.books);
@@ -138,6 +177,9 @@ addBookBtn.onclick = () => {
   for (var i=0, iLen=myBooks.books.length; i<iLen; i++) {
     console.log(`Name: ${myBooks.books[i].title}, is read: ${myBooks.books[i].isRead}`);
   }
+  }
 }
+
+
 
 
